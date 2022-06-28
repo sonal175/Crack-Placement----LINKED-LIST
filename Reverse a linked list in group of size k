@@ -1,0 +1,74 @@
+// Reverse a linked list in group of size k
+// There is a little bit difference in question at leetcode and gfg
+
+// TC-O(n)  SC-O(1)
+
+// leetcode solution--
+
+  ListNode* reverseKGroup(ListNode* head, int k) {
+        if(head==NULL || k==1) return head;
+        ListNode* dummy=new ListNode(0);
+        dummy->next=head;
+        
+        ListNode* curr=dummy, *prev=dummy, *nex=dummy;
+        int cnt=0;
+        while(curr->next!=NULL){
+            curr=curr->next;
+            cnt++;
+        }
+        while(cnt>=k){
+            curr=prev->next;
+            nex=curr->next;
+            for(int i=1;i<k;i++){
+                curr->next=nex->next;
+                nex->next=prev->next;
+                prev->next=nex;
+                nex=curr->next;
+            }
+            prev=curr;
+            cnt-=k;
+        }
+        return dummy->next;
+    }
+
+
+// Geeksforgeeks solution
+
+
+ struct node *reverse (struct node *head, int k)
+    { 
+         if(head==NULL || k==1) return head;
+        node* dummy=new node(0);
+        dummy->next=head;
+        
+        node* curr=dummy, *prev=dummy, *nex=dummy;
+        int cnt=0;
+        while(curr->next!=NULL){
+            curr=curr->next;
+            cnt++;
+        }
+        while(cnt>=k){
+            curr=prev->next;
+            nex=curr->next;
+            for(int i=1;i<k;i++){
+                curr->next=nex->next;
+                nex->next=prev->next;
+                prev->next=nex;
+                nex=curr->next;
+            }
+            prev=curr;
+            cnt-=k;
+        }
+        if(cnt>0){
+        curr=prev->next;
+        nex=curr->next;
+        for(int i=1;i<cnt;i++){
+             curr->next=nex->next;
+              nex->next=prev->next;
+              prev->next=nex;
+              nex=curr->next;
+        }
+        }
+        return dummy->next;
+    
+    }
