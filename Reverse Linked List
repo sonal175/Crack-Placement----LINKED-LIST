@@ -1,0 +1,42 @@
+//Reverse the linked list
+
+// TC-O(n) SC-O(n)
+
+// Recursive Code--
+
+ ListNode*solve(ListNode*head, ListNode*&h){
+        if(head==NULL) return NULL;
+        if(head->next==NULL) {
+            h=head;
+            return head;
+        }
+        ListNode*s=solve(head->next,h);
+        s->next=head;
+        head->next=NULL;
+        return head;
+    }
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL) return NULL;
+        ListNode*h;
+        solve(head,h);
+        return h;
+    }
+    
+    // TC-O(n)  SC-O(1)
+    
+    // Iterative code--
+    
+    
+  
+    ListNode* reverseList(ListNode* head) {
+        ListNode* current=head;
+        ListNode*forward=NULL;
+        ListNode*prev=NULL;
+        while(current!=NULL){
+            forward=current->next;
+            current->next=prev;
+            prev=current;
+            current=forward;
+        }
+        return prev;
+    }
