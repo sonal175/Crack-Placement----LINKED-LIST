@@ -1,0 +1,22 @@
+// Remove duplicates from sorted linked list
+
+// TC-O(n)  SC-O(1)
+
+// Code--
+
+  ListNode* deleteDuplicates(ListNode* head) {
+        ListNode*curr=head;
+        ListNode*nex=head;
+        while(curr && curr->next){
+            if(curr->next->val==curr->val){
+                nex=curr->next->next;
+                ListNode*temp=curr->next;
+                delete(temp);
+                curr->next=nex;
+            }else{
+                curr=curr->next;
+            }
+            
+        }
+        return head;
+    }
