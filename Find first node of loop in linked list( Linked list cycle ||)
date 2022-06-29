@@ -1,0 +1,23 @@
+// Find first node of loopin linked list (Linked list cycle II)
+
+// TC-O(n) SC-O(1)
+
+// Code--
+
+  ListNode *detectCycle(ListNode *head) {
+        if(head==NULL || head->next==NULL) return NULL;
+        ListNode*low=head;
+        ListNode*high=head;
+        while(low && high && high->next){
+            low=low->next;
+            high=high->next->next;
+            if(low==high) break;
+        }
+        if(low!=high) return NULL;
+        low=head;
+        while(low!=high){
+            low=low->next;
+            high=high->next;
+        }
+        return low;
+    }
