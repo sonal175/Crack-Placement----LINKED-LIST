@@ -1,0 +1,24 @@
+// Move last element to front
+
+// TC-O(N)  SC-O(1)
+
+// Code--
+
+  LinkedListNode<int>* moveToFront(LinkedListNode<int> *head) {
+
+   
+    if(head==NULL || head->next==NULL) return head;
+    LinkedListNode<int>*temp=head;
+    LinkedListNode<int>*prev=NULL;
+    while(temp && temp->next){
+        prev=temp;
+        temp=temp->next;
+    }
+    LinkedListNode<int>*k=temp;
+    prev->next=NULL;
+    k->next=head;
+    head=k;
+    return head;
+    
+    
+}
