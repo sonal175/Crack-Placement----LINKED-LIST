@@ -1,0 +1,24 @@
+ // Move last m elemnts to front of linked list
+ 
+ 
+ // TC-O(n)  SC-O(1)
+ 
+  // Code--
+    
+     
+        ListNode* move(ListNode* head, int m) {
+        if(!head || !head->next || m==0) return head;
+        ListNode*curr=head;
+        int len=1;
+        while(curr->next ){
+            len++;
+            curr=curr->next;
+        }
+        curr->next=head;
+        m=m%len;
+        m=len-m;
+        while(m-- ) curr=curr->next;
+        head=curr->next;
+        curr->next=NULL;
+        return head;
+    }
