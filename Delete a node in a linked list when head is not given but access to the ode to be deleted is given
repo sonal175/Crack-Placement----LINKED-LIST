@@ -1,0 +1,14 @@
+// Delete a node in linked list when head is not given instead node to be deleted access is given
+
+// TC-O(1)  SC-O(1)
+
+// Code--- 
+
+
+    void deleteNode(ListNode* node) {
+        node->val=node->next->val;
+        ListNode*nex=node->next->next;
+        ListNode*temp=node->next;
+        node->next=nex;
+        delete(temp);
+    }
