@@ -1,0 +1,127 @@
+// Add 1 to a number represented as a linked list
+
+// Iterative  Code--
+// TC-O(n)  SC-O(!)
+
+   Node* reverse(Node* head){
+        Node*curr=head;
+        Node*prev=NULL;
+        Node* nex=NULL;
+        while(curr){
+            nex=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nex;
+        }
+        return prev;
+    }
+    Node* addOne(Node *head) 
+    {
+    
+        if(head==NULL) return head;
+    
+        head=reverse(head);
+        Node*curr=head;
+        int carry=1;
+        while(curr->next){
+            if(curr==head){
+                int val=carry+curr->data;
+                curr->data=val%10;
+                carry=val/10;
+                
+                
+            }else{
+                int val=carry+curr->data;
+                curr->data= val%10;
+                carry=val/10;
+                
+            }
+            curr=curr->next;
+        }
+        if(carry){
+            if(curr->data==9){
+            Node*n=new Node(carry);
+            curr->data=0;
+            curr->next=n;
+            curr=n;
+            }else{
+                curr->data=(carry+curr->data);
+                
+            }
+        }
+       head= reverse(head);
+        return head;
+    }
+    
+    
+    // Recursive Code---
+     // TC-O(n)  SC-O(n)
+     
+     
+        int add(Node * head){
+        if(head->next==NULL){
+            int val=head->data+1;
+            head->data=val%10;
+            return val/10;
+        }
+        int v=head->data+add(head->next);
+        head->data=v%10;
+        return v/10;
+    }
+    Node* addOne(Node *head) 
+    {
+        int v=add(head);
+        if(v==1){
+            Node* n=new Node(v);
+            n->next=head;
+            head=n;
+            return head;
+        }
+        return head;
+        
+    }
+    
+    
+    // Code without reverse and SC-O(1) && TC-O(n)
+    
+    
+      
+      Node* addOne(Node *head) 
+    {
+    
+        Node* ln=head;
+        if(head->next==NULL){
+            head->data+=1;
+            return head;
+        }
+        Node* t=head;
+        int prev;
+        while(t->next){
+            if(t->data!=9){
+                ln=t;
+            }
+            t=t->next;
+        }
+        if(t->data==9 && ln!=NULL){
+            if(ln->data==9 && ln!=NULL){
+                Node*temp=new Node(1);
+                temp->next=head;
+                head=temp;
+                t=ln;
+            }else{
+                t=ln;
+                t->data+=1;
+                t=t->next;
+            }
+            while(t){
+                t->data=0;
+                t=t->next;
+            }
+        
+            }
+            else{
+                t->data+=1;
+        }
+        return head;
+    }
+    
