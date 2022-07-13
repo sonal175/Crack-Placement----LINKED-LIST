@@ -1,0 +1,82 @@
+// Flattening of a linked list
+
+// Approach-1
+ // TC-O(N) where N is the total number of nodes present in all linked list  SC-O(N) because of recursion
+ 
+  // Code---
+  
+    Node* merge( Node*a, Node*b){
+        Node*temp=new Node(0);
+        Node*res=temp;
+        
+        while(a!=NULL && b!=NULL){
+            if(a->data<b->data){
+                temp->bottom=a;
+                temp->bottom->next=NULL;
+                temp=temp->bottom;
+                a=a->bottom;
+            }else{
+                temp->bottom=b;
+                temp->bottom->next=NULL;
+                temp=temp->bottom;
+                b=b->bottom;
+            }
+        }
+        
+        if(a) temp->bottom=a;
+        else temp->bottom=b;
+        
+        return res->bottom;
+    }
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(root==NULL || root->next==NULL) return root;
+   
+   root->next=flatten(root->next);
+   
+   root=merge(root,root->next);
+   
+   return root;
+   
+}
+
+
+// Approach- 2
+
+  // TC-O(Nlogk) where N is the total number of nodes present in linked list  SC-O(K) where K is the number of nodes in main list(reachable using next pointer)
+  
+    // Code--
+    
+      class compare{
+        public:
+        bool operator()(Node*a, Node*b){
+            return a->data>b->data;
+        }
+    };
+Node *flatten(Node *root)
+{
+ 
+   priority_queue<Node*,vector<Node*>,compare>pq;
+   Node* curr=root;
+   while(curr!=NULL){
+       pq.push(curr);
+       curr=curr->next;
+   }
+   Node* dummy=new Node(0);
+   Node* last=dummy;
+   
+   if(pq.empty()) return NULL;
+   
+   while(!pq.empty()){
+       Node*temp=pq.top();
+       pq.pop();
+       temp->next=NULL;
+       last->bottom=temp;
+       last=last->bottom;
+       if(temp->bottom!=NULL){
+           pq.push(temp->bottom);
+       }
+   }
+   return dummy->bottom;
+}
