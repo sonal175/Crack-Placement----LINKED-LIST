@@ -1,0 +1,51 @@
+// Partition List
+
+ // TC-O(n)  SC-O(1)
+ 
+  // Code--
+  
+     ListNode* partition(ListNode* head, int x) {
+        
+        ListNode* less1=new ListNode(0);
+        ListNode* less=less1;
+
+        ListNode* more1=new ListNode(0);
+        ListNode* more=more1;
+        ListNode*curr=head;
+        while(curr!=NULL){
+            if(curr->val<x){
+                less->next=curr;
+                less=less->next;
+                curr=curr->next;
+            }else{
+                more->next=curr;
+                curr=curr->next;
+                more=more->next;
+            }
+        }
+        if(less1->next==NULL && more1->next==NULL){
+            return NULL;
+        }else if(less1->next==NULL ){
+            return more1->next;
+        }else if(more1->next==NULL ){
+            return less1->next;
+        }
+        
+        if(less1->next==NULL){
+            head=more1->next;
+            more->next=NULL;
+            return head;
+        }else if(more1->next==NULL){
+            head=less1->next;
+            less->next=NULL;
+            return head;
+        }
+        head=less1->next;
+        less->next=more1->next;
+    
+        more->next=NULL;
+        delete less1;
+        delete more1;
+        return head;
+        
+    }
