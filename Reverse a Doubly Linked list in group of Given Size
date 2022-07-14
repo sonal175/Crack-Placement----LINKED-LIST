@@ -1,0 +1,58 @@
+//  Reverse a Doubly Linked list in group of Given Size
+
+
+// TC- O(n)  SC-O(1) where n is the size of list
+
+  // Code--
+  
+   Node* reverseDLLInGroups(Node* head, int k)
+     {	
+    
+    if(head==NULL || k==1) return head;
+        Node* dummy=new Node(0);
+        dummy->next=head;
+        
+        Node* curr=dummy, *pre=dummy, *nex=dummy;
+        int cnt=0;
+        while(curr->next!=NULL){
+            curr=curr->next;
+            cnt++;
+        }
+        while(cnt>=k){
+            curr=pre->next;
+            nex=curr->next;
+            for(int i=1;i<k;i++){
+                curr->next=nex->next;
+                if(nex->next!=NULL){
+                nex->next->prev=curr;
+                }
+                nex->next=pre->next;
+                pre->next->prev=nex;
+                pre->next=nex;
+                nex->prev=pre;
+                nex=curr->next;
+            }
+            pre=curr;
+            cnt-=k;
+        }
+        if(cnt>0){
+        curr=pre->next;
+        nex=curr->next;
+        for(int i=1;i<cnt;i++){
+           
+             curr->next=nex->next;
+            
+            if(nex->next!=NULL){
+            nex->next->prev=curr;
+            }
+              nex->next=pre->next;
+            pre->next->prev=nex;
+              pre->next=nex;
+            nex->prev=pre;
+              nex=curr->next;
+        }
+        }
+    dummy->next->prev=NULL;
+        return dummy->next;
+}
+
