@@ -1,0 +1,33 @@
+// Find pairs with given sum in a doubly linked list
+
+// TC-O(n)  SC-O(1)  where  n is the size of list
+
+
+// Code--
+   
+   vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target)
+    {
+        
+        vector<pair<int,int>>v;
+        Node* last=head;
+        while(last->next!=NULL){
+            last=last->next;
+        }
+        Node* curr=head;
+        
+        while(curr!=last && last->next!=curr){
+            if(curr->data+last->data==target){
+                pair<int,int>a;
+                a.first=curr->data;
+                a.second=last->data;
+                v.push_back(a);
+                curr=curr->next;
+                last=last->prev;
+            }else if(curr->data+last->data<target){
+                curr=curr->next;
+            }else{
+                last=last->prev;
+            }
+        }
+        return v;
+    }
