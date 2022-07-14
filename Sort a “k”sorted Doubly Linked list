@@ -1,0 +1,42 @@
+// Sort a “k”sorted Doubly Linked list
+
+// TC-O(nlogk) SC-O(logk)  where n is the size of list
+
+// Code---
+
+  class compare{
+    public:
+ bool operator()( Node* a,Node*b){
+     return a->data>b->data;
+ }
+};
+
+Node *sortedDll(Node *head, int k)
+{
+    
+    if(head==NULL || k==0) return head;
+    priority_queue<Node*,vector<Node*>,compare>pq;
+    Node* start=NULL,*curr;
+    for(int i=0;i<=k && head!=NULL;i++){
+        pq.push(head);
+        head=head->next;
+    }
+    while(!pq.empty()){
+        if(start==NULL){
+            start=pq.top();
+            pq.top()->prev=NULL;
+            curr=start;
+        }else{
+            curr->next=pq.top();
+            pq.top()->prev=curr;
+            curr=pq.top();
+        }
+        pq.pop();
+        if(head!=NULL){
+            pq.push(head);
+            head=head->next;
+        }
+    }
+   curr->next=NULL;
+    return start;
+}
