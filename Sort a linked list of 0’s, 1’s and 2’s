@@ -1,0 +1,65 @@
+// Sort a linked list of 0’s, 1’s and 2’s
+
+// TC- O(n ) SC-O(1)
+
+ // Code--
+ 
+  Node* segregate(Node *head) {
+        
+        if(head== NULL && head->next==NULL) return head;
+        Node* zero=new Node(-1);
+        Node* one=new Node(-1);
+        Node* two=new Node(-1);
+        
+        Node* temp1=zero;
+        Node* temp2=one;
+        Node* temp3=two;
+        Node* curr=head;
+        
+        while(curr !=NULL){
+            if(curr->data==0){
+                temp1->next=curr;
+                temp1=temp1->next;
+            }else if(curr->data==1){
+                temp2->next=curr;
+                temp2=temp2->next;
+            }else{
+                temp3->next=curr;
+                temp3=temp3->next;
+            }
+            curr=curr->next;
+        }
+        if(zero->next==NULL && one->next==NULL){
+            return two->next;
+        }else if(zero->next==NULL && two->next==NULL){
+            return one->next;
+        }else if(one->next==NULL && two->next==NULL){
+            return zero->next;
+        }
+        
+        if(zero->next==NULL){
+            head=one->next;
+            temp2->next=two->next;
+            temp3->next=NULL;
+            return head;
+        }else if(one->next==NULL){
+            head=zero->next;
+            temp1->next=two->next;
+            temp3->next=NULL;
+            return head;
+        }else if(two->next==NULL){
+            head=zero->next;
+            temp1->next=one->next;
+            temp2->next=NULL;
+            return head;
+        }
+        head=zero->next;
+        temp1->next=one->next;
+        temp2->next=two->next;
+        temp3->next=NULL;
+        delete zero;
+        delete one;
+        delete two;
+        return head;
+        
+    }
