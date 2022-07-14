@@ -1,0 +1,21 @@
+// Reverse a doubly linked list
+
+// TC-O(n)  SC-O(1))
+
+// Code---
+
+  Node* reverseDLL(Node * head)
+{
+
+    Node*curr=head;
+    Node*pre=NULL;
+    Node*nex=NULL;
+    while(curr){
+        nex=curr->next;
+        curr->next=pre;
+        curr->prev=nex;
+        pre=curr;
+        curr=nex;
+    }
+    return pre;
+}
