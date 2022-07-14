@@ -1,0 +1,44 @@
+//  Deletion from a circular linked list
+
+// TC-O(n)  SC-O(1)  where n is the size of list
+
+// Code---
+
+  Node* deleteNode(Node* head, int key) 
+{
+  
+    if(head==NULL) return head;
+    
+    if(head->data==key && head->next==head){
+        delete(head);
+        return NULL;
+    }
+    
+    Node*last=head;
+    Node*prev=NULL;
+    if(head->data==key){
+        last=head->next;
+        while(last->next!=head){
+            last=last->next;
+        }
+        Node*temp=head;
+        last->next=head->next;
+        head->next=NULL;
+        head=last->next;
+        delete(temp);
+        return head;
+        
+    }
+    last=head->next;
+    while(last->data!=key && last->next!=head){
+        prev=last;
+        last=last->next;
+    }
+    if(last->data==key){
+        Node*nex=last->next;
+        prev->next=nex;
+        delete(last);
+        return head;
+    }
+    return head;
+}
