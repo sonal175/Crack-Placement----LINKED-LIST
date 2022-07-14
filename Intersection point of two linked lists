@@ -1,0 +1,38 @@
+// Intersetion point of two linked lists
+
+ // TC- O(m+n)  SC-O(1)  where m and n is the size of list1 and list2
+ 
+   // Code---
+   
+     int count(ListNode* head){
+        ListNode*curr=head;
+        ListNode*prev=NULL;
+        int cnt=0;
+        while(curr){
+            cnt++;
+            curr=curr->next;
+        }
+        return cnt;
+    }
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int d=abs(count(headA)-count(headB));
+        if(d>0){
+            if(count(headA)>count(headB)){
+                while(d-->0){
+                    headA=headA->next;
+                }
+            }else{
+                while(d-->0){
+                    headB=headB->next;
+                }
+            }
+        }
+        while(headA && headB){
+            if(headA==headB){
+                return headA;
+            }
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return NULL;
+    }
