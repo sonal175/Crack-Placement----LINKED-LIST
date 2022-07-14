@@ -1,0 +1,16 @@
+// Middle element of a linked list
+
+
+  // TC- O(n)  SC-O(1)  where n is the size of linked list
+  
+  // Code--
+  
+     ListNode* middleNode(ListNode* head) {
+        ListNode*slow=head;
+        ListNode*fast=head;
+        while(slow && fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
