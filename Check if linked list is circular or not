@@ -1,0 +1,15 @@
+// Check if linked list is circular or not
+
+  // TC- O(n)   SC-O(1)
+  
+  // Code--
+  
+    bool isCircular(Node *head)
+    {
+  
+   if(head==NULL) return true;
+   Node*curr=head->next;
+   while(curr!=NULL && curr!=head){
+       curr=curr->next;
+   }
+   return (curr==head);
