@@ -1,0 +1,36 @@
+//  Count triplets in a sorted DLL whose sum is equal to given value “X”
+
+
+  // TC- O(n^2)  SC-O(1)
+  
+   // Code---
+   
+   
+     int countTriplets(DLLNode* head, int x)
+{
+  
+    if(head==NULL || head->next==NULL) return 0;
+    int cnt=0;
+    DLLNode* last=head;
+    while(last->next!=NULL){
+        last=last->next;
+    }
+    DLLNode*curr=head;
+    while(curr!=NULL){
+        DLLNode*first=curr->next;
+        DLLNode*second=last;
+        while(first!=NULL && first!=second && first->prev!=second){
+            if(first->data+second->data==x-curr->data){
+                cnt++;
+                first=first->next;
+                second=second->prev;
+            }else if(first->data+second->data<x-curr->data){
+                first=first->next;
+            }else{
+                second=second->prev;
+            }
+        }
+        curr=curr->next;
+    }
+    return cnt;
+}  
