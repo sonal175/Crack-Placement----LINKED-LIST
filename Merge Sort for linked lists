@@ -1,7 +1,7 @@
 // Merge Sort for linked lists
 
 
-// TC- O(nlogn)  SC-O(n) because of recursion and n is size of linked list
+// TC- O(nlogn)  SC-O(logn) because of recursion and n is size of linked list
 
 
   // Code---
