@@ -1,0 +1,85 @@
+//  Nth node from end of linked list 
+
+ // Approach 1- using main and ref pointer
+ 
+  //TC-O(n)  SC-O(1) 
+  
+   // Code--
+   
+     int getNthFromLast(Node*head,int n){
+    if(head==NULL) return -1;
+    Node*main=head;
+    Node* ref=head;
+    int i;
+    for( i=1;i<=n && ref!=NULL;i++){
+        ref=ref->next;
+    }
+    if(ref==NULL && i<=n) return -1;
+    if(i>n && ref==NULL) return head->data;
+    while(ref!=NULL){
+        main=main->next;
+        ref=ref->next;
+    }
+    return main->data;
+    
+}
+
+
+// Approach 2- using length concept
+
+  // TC-O(n)  SC-O(1)
+  
+  
+   // Code---
+   
+    int len(Node*head){
+    int cnt=0;
+    Node*temp=head;
+    while(temp!=NULL){
+        cnt++;
+        temp=temp->next;
+    }
+    return cnt;
+}
+int getNthFromLast(Node*head,int n){
+    if(head==NULL) return -1;
+    if(n>len(head)) return -1;
+    if(n==len(head)) return head->data;
+    int val=len(head)-n+1;
+    
+    Node*curr=head;
+    for(int i=1;i< val && curr!=NULL ;i++){
+        curr=curr->next;
+    }
+    if(curr!=NULL) return curr->data;
+    return -1;
+    }
+    
+  // Approach 3- using recursion
+  
+   // TC-O(n)  SC-O(n)  where n is the size of list
+   
+    // Code-- 
+    
+    
+     void get(Node*head,int n,int &i,int &val){
+     if(head==NULL) return;
+      get(head->next,n,i,val);
+       if(++i==n){
+      val=head->data;  
+     return;
+      }
+      return;
+      }
+      
+int getNthFromLast(Node *head, int n)
+{
+       
+       if(head==NULL) return -1;
+       int val=0;
+       int i=0;
+       get(head,n,i,val);
+       if(val==0) return -1;
+       return val;
+       
+}
