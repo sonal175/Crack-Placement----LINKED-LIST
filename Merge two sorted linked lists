@@ -1,0 +1,42 @@
+// Merge two sorted linked  lists
+
+
+ // TC-O( min(m,n))  SC-O(1) where m and n is the size of list1 and list2
+ 
+ 
+   // Code---
+     
+     
+       ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode*h1=list1;
+        ListNode*h2=list2;
+        if(h1==NULL && h2==NULL) return NULL;
+        ListNode*dummy=new ListNode(0);
+        ListNode*ans=dummy;
+        if(h1==NULL){
+            dummy->next=h2;
+            return dummy->next;
+        }
+        if(h2==NULL){
+            dummy->next=h1;
+            return dummy->next;
+        }
+        while(h1 && h2){
+            if(h1->val<=h2->val){
+                ans->next=h1;
+                ans=h1;
+                h1=h1->next;
+            }else{
+                ans->next=h2;
+                ans=h2;
+                h2=h2->next;
+            }
+        }
+        if(h1!=NULL){
+            ans->next=h1;
+        }
+        if(h2!=NULL){
+            ans->next=h2;
+        }
+        return dummy->next;
+    }
