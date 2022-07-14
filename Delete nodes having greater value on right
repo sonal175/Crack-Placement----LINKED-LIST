@@ -1,0 +1,40 @@
+// Delete nodes having greater value on right 
+
+ // TC- O(n)  SC-O(1)  where n is the size of list
+ 
+  // Code-- 
+  
+    Node* reverse(Node*head){
+        Node*curr=head;
+        Node*prev=NULL;
+        Node*nex=head;
+        while(curr){
+            nex=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nex;
+        }
+        return prev;
+    }
+    
+    
+    Node *compute(Node *head)
+    {
+        
+    
+    head = reverse(head);
+    
+        Node*curr=head;
+        Node*maxn=head;
+        while(curr && curr->next){
+            if(curr->next->data<maxn->data){
+                Node*temp=curr->next;
+                curr->next=temp->next;
+                delete(temp);
+            }else{
+                curr=curr->next;
+                maxn=curr;
+            }
+        }
+        return reverse(head);
+    }
