@@ -1,0 +1,29 @@
+// Split a circular linked list in two halves
+
+// TC-O(n)   SC-O(1)  where n is the size of list
+
+ // Code---
+ 
+    void splitList(Node *head, Node **head1_ref, Node **head2_ref)
+{
+    
+    Node* slow=head->next;
+    Node*fast=head->next;
+    Node*prev=NULL;
+    while(slow!=head && fast!=head && fast->next!=head){
+        prev=slow;
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    Node*h1=head;
+    Node*h2=slow;
+    prev->next=h1;
+    
+    while(slow->next!=head){
+        slow=slow->next;
+    }
+    slow->next=h2;
+    *head1_ref=h1;
+    *head2_ref=h2;
+}
+
