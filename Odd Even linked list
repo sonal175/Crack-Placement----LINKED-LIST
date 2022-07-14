@@ -1,0 +1,28 @@
+// Odd even Linked list 
+
+ //  TC-O(n)  SC=O(1)  where n is the size of list
+ 
+   // Code--- 
+   
+      ListNode* oddEvenList(ListNode* head) {
+        ListNode*odd=new ListNode(0);
+        ListNode*even=new ListNode(0);
+        ListNode* curr1=odd;
+        ListNode* curr2=even;
+        ListNode*temp=head;
+        int i=1;
+        while(temp){
+            if(i%2!=0){
+                curr1->next=temp;
+                curr1=curr1->next;
+            }else{
+                curr2->next=temp;
+                curr2=curr2->next;
+            }
+            i++;
+            temp=temp->next;
+        }
+        curr1->next=even->next;
+        curr2->next=NULL;
+        return odd->next;
+    }
