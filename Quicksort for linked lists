@@ -1,0 +1,212 @@
+// Quicksort for linked lists
+
+  //    CASES---    (TC/SC)                                     BEST               AVERAGE             WORST
+           
+          Mergesort                                           nlogn/logn           nlogn/logn           nlogn/logn                                         
+          Quicksort                                           nlogn/logn           >nlogn/>logn          n^2/n
+          
+          
+    //  Code---
+    
+      // Leetcode  Sol---
+      
+          class list1{
+        public:
+        ListNode*l;
+        ListNode*p;
+        ListNode*r;
+    };
+    
+    class list2{
+        public:
+        ListNode*l;
+        ListNode*r;
+    };
+     int length(ListNode*head){
+         int len=0;
+         ListNode*curr=head;
+         while(curr!=NULL){
+             len++;
+             curr=curr->next;
+         }
+         return len;
+     }
+    
+    list1 segregate(ListNode* head, int pivot){
+        ListNode*pivotnode=head;
+        while(pivot-->0){
+            pivotnode=pivotnode->next;
+        }
+        ListNode*s=new ListNode(-1);
+        ListNode*l=new ListNode(-1);
+        ListNode* d1=s;
+        ListNode* d2=l;
+        ListNode*curr=head;
+        while(curr!=NULL){
+            if(curr!=pivotnode){
+            if(curr->val<=pivotnode->val){
+                s->next=curr;
+                s=s->next;
+            }else{
+                l->next=curr;
+                l=l->next;
+            }
+            }
+            curr=curr->next;
+        }
+        pivotnode->next=NULL;
+        s->next=NULL;
+        l->next=NULL;
+        list1 a;
+        a.l=d1->next;
+        a.p=pivotnode;
+        a.r=d2->next;
+        return a;
+    }
+    
+    list2 merge(list2 a, ListNode* pv, list2 b){
+        ListNode*head=NULL,*tail=NULL;
+        if(a.l!=NULL && b.l!=NULL){
+            a.r->next=pv;
+            pv->next=b.l;
+            head=a.l;
+            tail=b.r;
+        }else if(a.l!=NULL){
+            a.r->next=pv;
+            head=a.l;
+            tail=pv;
+        }else if(b.l!=NULL){
+            pv->next=b.l;
+            head=pv;
+            tail=b.r;
+        }else{
+            head=pv;
+            tail=pv;
+        }
+        list2 c;
+        c.l=head;
+        c.r=tail;
+        return c;
+    }
+    list2 quicksort(ListNode*head){
+        if(head==NULL || head->next==NULL){
+            list2 a;
+            a.l=head;
+            a.r=head;
+            return a;
+        }
+        int s=length(head);
+        int pivot=s/2;
+        list1 k=segregate(head,pivot);
+        list2 b= quicksort(k.l);
+        list2 c= quicksort(k.r);
+        return merge(b,k.p,c);
+        
+    }
+    ListNode* sortList(ListNode* head) {
+        list2 d=quicksort(head);
+        return d.l;
+        }
+           
+           
+    // GFG  Sol----
+    
+    
+      class list1{
+        public:
+        node*l;
+        node*p;
+        node*r;
+    };
+    
+    class list2{
+        public:
+        node*l;
+        node*r;
+    };
+     int length(node*head){
+         int len=0;
+         node*curr=head;
+         while(curr!=NULL){
+             len++;
+             curr=curr->next;
+         }
+         return len;
+     }
+    
+    list1 segregate(node* head, int pivot){
+        node*pivotnode=head;
+        while(pivot-->0){
+            pivotnode=pivotnode->next;
+        }
+        node*s=new node(-1);
+        node*l=new node(-1);
+        node* d1=s;
+        node* d2=l;
+        node*curr=head;
+        while(curr!=NULL){
+            if(curr!=pivotnode){
+            if(curr->data<=pivotnode->data){
+                s->next=curr;
+                s=s->next;
+            }else{
+                l->next=curr;
+                l=l->next;
+            }
+            }
+            curr=curr->next;
+        }
+        pivotnode->next=NULL;
+        s->next=NULL;
+        l->next=NULL;
+        list1 a;
+        a.l=d1->next;
+        a.p=pivotnode;
+        a.r=d2->next;
+        return a;
+    }
+    
+    list2 merge(list2 a, node* pv, list2 b){
+        node*head=NULL,*tail=NULL;
+        if(a.l!=NULL && b.l!=NULL){
+            a.r->next=pv;
+            pv->next=b.l;
+            head=a.l;
+            tail=b.r;
+        }else if(a.l!=NULL){
+            a.r->next=pv;
+            head=a.l;
+            tail=pv;
+        }else if(b.l!=NULL){
+            pv->next=b.l;
+            head=pv;
+            tail=b.r;
+        }else{
+            head=pv;
+            tail=pv;
+        }
+        list2 c;
+        c.l=head;
+        c.r=tail;
+        return c;
+    }
+    list2 quicksort(node*head){
+        if(head==NULL || head->next==NULL){
+            list2 a;
+            a.l=head;
+            a.r=head;
+            return a;
+        }
+        int s=length(head);
+        int pivot=s/2;
+        list1 k=segregate(head,pivot);
+        list2 b= quicksort(k.l);
+        list2 c= quicksort(k.r);
+        return merge(b,k.p,c);
+        
+    }
+
+void quickSort(struct node **headRef) {
+    list2 a=quicksort(*headRef);
+    *headRef=a.l;
+}
