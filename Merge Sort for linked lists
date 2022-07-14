@@ -1,0 +1,143 @@
+// Merge Sort for linked lists
+
+
+// TC- O(nlogn)  SC-O(n) because of recursion and n is size of linked list
+
+
+  // Code---
+  
+      //Leetcode sol---
+      
+          ListNode* middle(ListNode*head){
+        ListNode*slow=head;
+        ListNode*fast=head->next;
+        while(fast && slow && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+    ListNode* merge(ListNode* h1, ListNode*h2){
+        if(h1==NULL && h2==NULL) return NULL;
+        ListNode*dummy=new ListNode(0);
+        ListNode*ans=dummy;
+        if(h1==NULL){
+            
+            return h2;
+        }
+        if(h2==NULL){
+            
+            return h1;
+        }
+        while(h1 && h2){
+            if(h1->val<=h2->val){
+                ans->next=h1;
+                ans=h1;
+                h1=h1->next;
+            }else{
+                ans->next=h2;
+                ans=h2;
+                h2=h2->next;
+            }
+        }
+        if(h1!=NULL){
+            ans->next=h1;
+        }
+        if(h2!=NULL){
+            ans->next=h2;
+        }
+        return dummy->next;
+    }
+    ListNode* merging(ListNode*head){
+        if(head==NULL || head->next==NULL) return head;
+        ListNode*h1=head;
+         ListNode* s=middle(head);
+        
+         ListNode*h2=NULL;
+        if(s!=NULL){
+            h2=s->next;
+            s->next=NULL;
+        }
+         
+    
+        
+        h1=merging(h1);
+        h2=merging(h2);
+        return merge(h1,h2);
+        
+    }
+
+    ListNode* sortList(ListNode* head) {
+        head=merging(head);
+        return head;
+    }
+    
+    
+  // GFG sol---
+  
+  
+     Node* middle(Node*head){
+        Node*slow=head;
+        Node*fast=head->next;
+        while(fast && slow && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+    Node* merge(Node* h1, Node*h2){
+        if(h1==NULL && h2==NULL) return NULL;
+        Node*dummy=new Node(0);
+        Node*ans=dummy;
+        if(h1==NULL){
+            dummy->next=h2;
+            return dummy->next;
+        }
+         if(h2==NULL){
+            dummy->next=h1;
+            return dummy->next;
+        }
+        while(h1 && h2){
+            if(h1->data<=h2->data){
+                ans->next=h1;
+                ans=h1;
+                h1=h1->next;
+            }else{
+                ans->next=h2;
+                ans=h2;
+                h2=h2->next;
+            }
+        }
+        if(h1!=NULL){
+            ans->next=h1;
+        }
+        if(h2!=NULL){
+           ans->next=h2;
+        }
+        return dummy->next;
+    }
+    Node* merging(Node*head){
+        if(head==NULL || head->next==NULL) return head;
+        Node*h1=head;
+         Node* s=middle(head);
+         Node*h2=s->next;
+         s->next=NULL;
+    
+        
+        h1=merging(h1);
+        h2=merging(h2);
+        return merge(h1,h2);
+        
+    }
+    
+      void move(Node*&head){
+      Node*p=merging(head);
+      head=p;
+    }
+
+    Node* mergeSort(Node* head) {
+        
+        if(head==NULL || head->next==NULL) return head;
+       move(head);
+        return head;
+    }
