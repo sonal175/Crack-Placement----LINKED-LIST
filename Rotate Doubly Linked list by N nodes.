@@ -1,0 +1,27 @@
+// Rotate Doubly Linked list by N nodes
+
+ // TC- O(n)   SC-O(1)  where n is the size of list
+ 
+ 
+   // Code---
+   
+      Node *rotateDLL(Node *start,int p)
+    {
+    
+        if(start==NULL || p==0) return start;
+        Node* slow=start;
+        Node*prev=NULL;
+        while(p-->0){
+            prev=slow;
+            slow=slow->next;
+        }
+        Node* head=slow;
+        prev->next=NULL;
+        slow->prev=NULL;
+        while(slow->next!=NULL){
+            slow=slow->next;
+        }
+        slow->next=start;
+        start->prev=slow;
+        return head;
+    }   
