@@ -1,0 +1,54 @@
+// Reverse Linked List ||
+
+ // TC-O(n)  SC-O(1)
+ 
+   // Code---
+   
+    pair<ListNode*,ListNode*> reverse(ListNode* head){
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* temp=head;
+        ListNode* nex=head;
+        while(curr){
+            nex=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nex;
+        }
+       pair< ListNode*,ListNode*>p;
+        p.first=prev;
+        p.second=temp;
+        return p;
+    }
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        int i=1;
+        ListNode* s=head;
+        ListNode* ps=NULL;
+        while(s){
+            if(i==left) break;
+            ps=s;
+            s=s->next;
+            i++;
+        }
+        ListNode* e=s;
+        while(e){
+            if(i==right) break;
+            e=e->next;
+            i++;
+        }
+        ListNode* ed=NULL;
+        if(e!=NULL){
+            ed=e->next;
+            e->next=NULL;
+        }
+        
+        pair<ListNode*,ListNode*>p=reverse(s);
+        if(ps!=NULL){
+            ps->next=p.first;
+            p.second->next=ed;
+        }else{
+            head= p.first;
+            p.second->next=ed;
+        }
+        return head;
+    }
