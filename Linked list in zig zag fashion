@@ -1,0 +1,56 @@
+// Linked list in zig zag fashion
+
+ // TC-O(n)  SC-O(1)
+ 
+  // Code--- 
+  
+  
+   Node *zigZag(Node* head)
+    {
+     Node* curr=head;
+     Node*prev=NULL;
+     Node*nex=head;
+     bool flag=true;
+     while(curr && curr->next){
+         if(flag==true){
+             if(curr->data>curr->next->data){
+                 nex=curr->next;
+                 curr->next=nex->next;
+                 nex->next=curr;
+                 if(prev!=NULL){
+                     prev->next=nex;
+                     prev=prev->next;
+                 }else{
+                     head=nex;
+                     prev=nex;
+                 }
+                 flag=!flag;
+             }else{
+                 prev=curr;
+                 curr=curr->next;
+                 flag=!flag;
+             }
+         }else if(flag==false){
+              if(curr->data<curr->next->data){
+                 nex=curr->next;
+                 curr->next=nex->next;
+                 nex->next=curr;
+                 
+                 if(prev!=NULL){
+                     prev->next=nex;
+                     prev=prev->next;
+                 }else{
+                     head=nex;
+                     prev=nex;
+                 }
+                 flag=!flag;
+                 
+             }else{
+                 prev=curr;
+                 curr=curr->next;
+                 flag=!flag;
+             }
+         }
+     }
+     return head;
+    }
