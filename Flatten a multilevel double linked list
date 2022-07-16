@@ -1,0 +1,53 @@
+// Flatten a multi level double linked list
+
+  // TC-O(n) SC-O(1)  where n is the size of linked list
+  
+   // Iterative Approach Code---
+   
+    Node* flatten(Node* head) {
+        Node*curr=head;
+        while(curr!=NULL){
+            if(curr->child==NULL){
+                curr=curr->next;
+            }else{
+                Node* tail=curr->next;
+                Node*child=curr->child;
+                while(child->next){
+                    child=child->next;
+                }
+                curr->next=curr->child;
+                curr->child->prev=curr;
+                curr->child=NULL;
+                child->next=tail;
+                if(tail){
+                    tail->prev=child;
+                }
+            }
+        }
+        return head;
+    }
+    
+    // Recursive Approach ( TC-O(n)  SC-O(n)  where n is the size of linked list)
+    
+       Node* flatten(Node* head) {
+        Node*curr=head;
+        while(curr!=NULL){
+            if(curr->child==NULL){
+                curr=curr->next;
+            }else{
+                Node* tail=curr->next;
+                Node*child=curr->child;
+                while(child->next){
+                    child=child->next;
+                }
+                curr->next=curr->child;
+                curr->child->prev=curr;
+                curr->child=NULL;
+                child->next=tail;
+                if(tail){
+                    tail->prev=child;
+                }
+            }
+        }
+        return head;
+    }
