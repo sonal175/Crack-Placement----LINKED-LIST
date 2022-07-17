@@ -1,0 +1,44 @@
+// Unfold of a linked list 
+
+
+// TC-O(n)  SC=O(1) where n is the size of linked list
+
+  // Code--
+  
+         
+ListNode* reverse(ListNode* head){
+    ListNode* curr=head;
+    ListNode* prev=NULL;
+    ListNode* nex=head;
+    while(curr){
+        nex=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nex;
+    }
+   return prev;
+}
+void unfold(ListNode *head)
+{
+    int i=1;
+    ListNode* curr=head;
+    ListNode* st=new ListNode(-1);
+    ListNode* s=st;
+    ListNode* ed=new ListNode(-1);
+    ListNode* e=ed;
+    while(curr!=NULL){
+        if(i%2!=0){
+            s->next=curr;
+            s=s->next;
+        }else{
+            e->next=curr;
+            e=e->next;
+        }
+        i++;
+        curr=curr->next;
+    }
+    e->next=NULL;
+    ListNode* h2=reverse(ed->next);
+     head=st->next;
+     s->next=h2;
+}
