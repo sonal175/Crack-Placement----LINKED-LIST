@@ -1,0 +1,111 @@
+// Subtraction in linked list
+
+// TC-O(n)  SC-O(1)
+
+  // Code--
+    
+     Node* removezero(Node* head){
+    
+    Node* curr=head;
+    while( curr && curr->data==0){
+        curr=curr->next;
+    }
+    return curr;
+}
+int len(Node* head){
+    int cnt=0;
+    Node* curr=head;
+    while(curr){
+        cnt++;
+        curr=curr->next;
+    }
+    return cnt;
+}
+
+Node* reverse(Node * head){
+    if( head==NULL || head->next==NULL) return head;
+    Node * curr=head;
+    Node * prev=NULL;
+    Node * nex=head;
+    while(curr){
+        nex=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nex;
+    }
+    return prev;
+}
+Node* subLinkedList(Node* l1, Node* l2)
+
+{
+    
+    if( l1==NULL && l2== NULL) return NULL;
+    if(l1 == NULL || l2==NULL){
+        if(l1==NULL) return l2;
+        if(l2==NULL) return l1;
+    }
+    l1= removezero(l1);
+    l2=removezero(l2);
+
+    
+    int k1=len(l1);
+    int k2=len(l2);
+    Node* c1,*c2,*temp;
+    if(k1!=k2){
+        if(k1>k2){
+           c1=reverse(l1);
+           c2=reverse(l2);
+           temp=c1;
+        }else{
+            c1=reverse(l2);
+            c2=reverse(l1);
+            temp=c1;
+        }
+        
+    }else{
+        Node* t1=l1, *t2=l2;
+        while(t1 && t2){
+            if(t1->data>t2->data){
+                c1=reverse(l1);
+                c2=reverse(l2);
+                temp=c1;
+                break;
+            }else if(t1->data<t2->data){
+                c1=reverse(l2);
+                c2=reverse(l1);
+                temp=c1;
+                break;
+                
+            }else{
+                t1=t1->next;
+                t2=t2->next;
+            }
+        }
+        if( t1==NULL && t2==NULL){
+            temp=new Node(0);
+            return temp;
+        }
+    }
+    
+    int borrow=0;
+     while(c1){
+         int diff= c1->data-((c2!=NULL? c2->data:0)-borrow);
+         if(diff<0){
+             diff+=10;
+             c1->data=diff;
+             borrow=-1;
+         }else{
+             c1->data=diff;
+             borrow=0;
+         }
+         c1=c1->next;
+         if(c2!=NULL) c2=c2->next;
+     }
+     temp=reverse(temp);
+     temp= removezero(temp);
+     if(temp==NULL){
+         temp=new Node(0);
+         return temp;
+     }
+     return temp;
+}
