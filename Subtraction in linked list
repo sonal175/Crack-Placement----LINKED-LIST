@@ -1,6 +1,6 @@
 // Subtraction in linked list
 
-// TC-O(n)  SC-O(1)
+// TC-O(max(m,n))  SC-O(1) where m and n are the size of list1 and list2
 
   // Code--
     
