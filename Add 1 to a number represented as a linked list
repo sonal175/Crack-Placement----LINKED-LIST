@@ -24,18 +24,10 @@
         Node*curr=head;
         int carry=1;
         while(curr->next){
-            if(curr==head){
+         
                 int val=carry+curr->data;
                 curr->data=val%10;
                 carry=val/10;
-                
-                
-            }else{
-                int val=carry+curr->data;
-                curr->data= val%10;
-                carry=val/10;
-                
-            }
             curr=curr->next;
         }
         if(carry){
